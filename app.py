@@ -1,3 +1,4 @@
+# Main app file
 from flask import Flask #API handling
 from flask_jwt_extended import JWTManager
 from models import db
@@ -5,6 +6,7 @@ from routes import bp
 from config import DB_URI, JWT_SECRET
 
 app = Flask(__name__)
+
 #Configure Flask app
 app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -16,7 +18,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-#Register Blueprint and JWT
+# Register Blueprint and JWT
 JWTManager(app)
 app.register_blueprint(bp)
 
