@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models import db, Driver
 from flask_jwt_extended import jwt_required
+from config import BOOKING_SERVICE_URL
 import requests
 
 #Blueprint lets us organize routes into modular files.
@@ -48,7 +49,7 @@ Show only free drivers.
 @jwt_required()
 def free_drivers():
     all_drivers = Driver.query.all()
-    response = requests.get("http://booking:5000/active-bookings", timeout=5)
+    response = requests.get(f"{BOOKING_SERVICE_URL}/active-bookings", timeout=5)
     
     if response.status_code != 200:
         return jsonify({"error": "Could not fetch bookings"}), 500
