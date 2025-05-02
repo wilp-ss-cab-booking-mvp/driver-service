@@ -67,3 +67,11 @@ def free_drivers():
             })
 
     return jsonify(free_drivers)
+
+# GET /drivers/<id>
+@bp.route("/drivers/<int:driver_id>", methods=["GET"])
+def get_driver_by_id(driver_id):
+    driver = Driver.query.get(driver_id)
+    if not driver:
+        return jsonify({"error": "Driver not found"}), 404
+    return jsonify(driver.to_dict())

@@ -11,3 +11,11 @@ class Driver(db.Model):
     name = db.Column(db.String(100), nullable=False)
     license_number = db.Column(db.String(50), unique=True, nullable=False) #unique license_number ID
     available = db.Column(db.Boolean, default=True) #whether the driver is currently available
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "license_number": self.license_number,
+            "status": self.available
+        }
